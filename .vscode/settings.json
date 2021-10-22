@@ -1,3 +1,8 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/."
+    "cmake.sourceDirectory": "${workspaceFolder}/.",
+    "cSpell.words": [
+        "glew",
+        "glfw",
+        "OPENGL"
+    ]
 }
