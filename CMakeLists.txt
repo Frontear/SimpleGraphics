@@ -3,6 +3,8 @@ project(SimpleGraphics VERSION 0.1.0)
 
 add_executable(SimpleGraphics
     src/main.cpp
+
+    src/frontear/window.cpp
 )
 
 file(COPY "assets" DESTINATION "${CMAKE_BINARY_DIR}")
