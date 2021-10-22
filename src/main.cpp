@@ -1,3 +1,4 @@
+#include <array>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -7,22 +8,22 @@ int main() {
     auto x = simple_graphics::Window("SimpleGraphics", 640, 360);
 
     // a vertex array object can be thought of as an array for all of our vertex buffer objects
-    GLuint array[1];
-    glGenVertexArrays(1, array);
+    std::array<GLuint, 1> array;
+    glGenVertexArrays(array.size(), array.data());
     glBindVertexArray(array[0]);
 
     // vertices of the shape
-    GLfloat vertices[] = {
+    std::array<GLfloat, 3 * 3> vertices = {
         -1.0f, -1.0f, 0.0f,
          1.0f, -1.0f, 0.0f,
          0.0f,  1.0f, 0.0f
     };
 
     // our vertex buffer object contains the vertex data for our shape
-    GLuint buffer[1];
-    glGenBuffers(1, buffer);
+    std::array<GLuint, 1> buffer;
+    glGenBuffers(buffer.size(), buffer.data());
     glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices.data(), GL_STATIC_DRAW);
 
     // enable our vertex array object, we generated 1 so get the 0th array object
     glEnableVertexAttribArray(0);
@@ -88,7 +89,7 @@ int main() {
     }
 
     // clean up our objects
-    glDeleteBuffers(1, buffer);
-    glDeleteVertexArrays(1, array);
+    glDeleteBuffers(buffer.size(), buffer.data());
+    glDeleteVertexArrays(array.size(), array.data());
     glDeleteProgram(program);
 }
