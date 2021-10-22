@@ -1,4 +1,5 @@
 #include <array>
+#include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -34,7 +35,7 @@ int main() {
     GLuint program = glCreateProgram();
 
     // vertex shader operates on each vertex
-    const GLchar* vertex_shader =
+    std::string vertex_shader =
     R"glsl(
     #version 330 core
 
@@ -47,12 +48,13 @@ int main() {
     )glsl";
 
     GLuint v_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(v_shader, 1, &vertex_shader, nullptr);
+    const GLchar* vertex_content = vertex_shader.c_str();
+    glShaderSource(v_shader, 1, &vertex_content, nullptr);
     glCompileShader(v_shader);
     glAttachShader(program, v_shader);
 
     // fragment shaders operate on each sample (glfwWindowHint GLFW_SAMPLES)
-    const GLchar* fragment_shader =
+    std::string fragment_shader =
     R"glsl(
     #version 330 core
 
@@ -64,7 +66,8 @@ int main() {
     )glsl";
 
     GLuint f_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(f_shader, 1, &fragment_shader, nullptr);
+    const GLchar* fragment_content = fragment_shader.c_str();
+    glShaderSource(f_shader, 1, &fragment_content, nullptr);
     glCompileShader(f_shader);
     glAttachShader(program, f_shader);
 
@@ -72,7 +75,7 @@ int main() {
     glLinkProgram(program);
     glUseProgram(program);
 
-    // detach our shaders from the program, it has its own copy now.
+    // detach our shaders from the program, they have been used when we linked our program.
     glDetachShader(program, v_shader);
     glDeleteShader(v_shader);
 
