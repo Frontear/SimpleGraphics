@@ -1,11 +1,7 @@
 #include <string>
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include "window.hpp"
-
-GLFWwindow* window = nullptr;
 
 simple_graphics::Window::Window(const char* title, int width, int height) {
     if (glfwInit() == GLFW_TRUE) {

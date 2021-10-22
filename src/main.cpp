@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "frontear/window.hpp"
+#include "graphics/window.hpp"
 
 int main() {
     auto x = simple_graphics::Window("SimpleGraphics", 640, 360);
