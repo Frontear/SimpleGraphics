@@ -1,5 +1,5 @@
-#ifndef FRONTEAR_GRAPHICS
-#define FRONTEAR_GRAPHICS
+#ifndef GRAPHICS_WINDOW
+#define GRAPHICS_WINDOW
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

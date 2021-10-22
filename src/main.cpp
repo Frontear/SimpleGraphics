@@ -3,15 +3,15 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "graphics/array.hpp"
 #include "graphics/window.hpp"
 
 int main() {
     auto x = simple_graphics::Window("SimpleGraphics", 640, 360);
 
     // a vertex array object can be thought of as an array for all of our vertex buffer objects
-    std::array<GLuint, 1> array;
-    glGenVertexArrays(array.size(), array.data());
-    glBindVertexArray(array[0]);
+    auto array = simple_graphics::Array();
+    array.bind();
 
     // vertices of the shape
     std::array<GLfloat, 3 * 3> vertices = {
@@ -27,7 +27,7 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices.data(), GL_STATIC_DRAW);
 
     // enable our vertex array object, we generated 1 so get the 0th array object
-    glEnableVertexAttribArray(0);
+    array.enable();
     // define our buffer vertex data, helps in the rendering. 0 here references the first buffer in our array, of which we only have 1.
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
@@ -93,6 +93,5 @@ int main() {
 
     // clean up our objects
     glDeleteBuffers(buffer.size(), buffer.data());
-    glDeleteVertexArrays(array.size(), array.data());
     glDeleteProgram(program);
 }

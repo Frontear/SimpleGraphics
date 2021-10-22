@@ -4,6 +4,7 @@ project(SimpleGraphics VERSION 0.1.0)
 add_executable(SimpleGraphics
     src/main.cpp
 
+    src/graphics/array.cpp
     src/graphics/window.cpp
 )
 
