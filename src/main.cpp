@@ -24,6 +24,11 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // enable our vertex array object, we generated 1 so get the 0th array object
+    glEnableVertexAttribArray(0);
+    // define our buffer vertex data, helps in the rendering. 0 here references the first buffer in our array, of which we only have 1.
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
     // contains our shader details
     GLuint program = glCreateProgram();
 
@@ -72,11 +77,6 @@ int main() {
 
     glDetachShader(program, f_shader);
     glDeleteShader(f_shader);
-
-    // enable our vertex array object, we generated 1 so get the 0th array object
-    glEnableVertexAttribArray(0);
-    // define our buffer vertex data, helps in the rendering. 0 here references the first buffer in our array, of which we only have 1.
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     while (x.isAlive()) {
         glClear(GL_COLOR_BUFFER_BIT);
