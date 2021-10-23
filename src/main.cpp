@@ -1,34 +1,49 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+GLFWwindow* create_window(int width, int height, const char* title);
+void destroy();
+
 int main(int, char**) {
-    if (glfwInit() == GLFW_FALSE) {
-        return -1;
+    GLFWwindow* window = create_window(640, 360, "SimpleGraphics");
+
+    if (window != nullptr) {
+        while (glfwWindowShouldClose(window) == GLFW_FALSE) {
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            glfwSwapBuffers(window);
+            glfwPollEvents();
+        }
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    destroy();
 
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    return 0;
+}
 
-    GLFWwindow* window = glfwCreateWindow(640, 360, "SimpleGraphics", nullptr, nullptr);
-    if (window != nullptr) {
-        glfwMakeContextCurrent(window);
+GLFWwindow* create_window(int width, int height, const char* title) {
+    if (glfwInit() == GLFW_TRUE) {
+        glfwWindowHint(GLFW_SAMPLES, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        glewExperimental = GL_TRUE;
-        if (glewInit() == GLEW_OK) {
+        GLFWwindow* window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+        if (window != nullptr) {
+            glfwMakeContextCurrent(window);
 
-            glfwSwapInterval(1);
-            while (glfwWindowShouldClose(window) == GLFW_FALSE) {
-                glClear(GL_COLOR_BUFFER_BIT);
+            glewExperimental = GL_TRUE;
+            if (glewInit() == GLEW_OK) {
+                glfwSwapInterval(1);
 
-                glfwSwapBuffers(window);
-                glfwPollEvents();
+                return window;
             }
         }
     }
 
-    glfwTerminate();
+    return nullptr;
+}
 
-    return 0;
+void destroy() {
+    glfwTerminate();
 }
